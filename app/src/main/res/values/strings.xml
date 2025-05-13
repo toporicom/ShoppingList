@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Список покупок</string>
+
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="login_button">Войти</string>
+    <string name="name">Разработала: Бедрышева Мария, РИБО–02–23</string>
+    <string name="task">Тема курсовой: Список покупок</string>
+
+    <string name="list_of_stores">Список магазинов</string>
+    <string name="list_of_products">Список продуктов</string>
+
+    <string name="add_store">Добавить магазин</string>
+    <string name="add_product">Добавить продукт</string>
+    <string name="rename_store">Переименовать магазин</string>
+
+    <string name="quantity">Количество</string>
+    <string name="confirm">Подтвердить</string>
+
+    <string name="enter_new_store_name">Введите новое название</string>
+    <string name="enter_store_name">Введите название магазина</string>
+    <string name="enter_product_name">Введите название продукта</string>
+    <string name="empty_fields">Поля не могут быть пустыми</string>
+    <string name="not_responding">Сервер не отвечает</string>
+    <string name="incorrect_login_or_password">Неверный логин или пароль</string>
+    <string name="enter_product_price">Введите стоимость продукта</string>
+    <string name="name_of_product_not_empty">Имя продукта не должно быть пустым</string>
+    <string name="product_has_not_been_added">Товар не добавлен</string>
+    <string name="store_has_not_been_added">Магазин не добавлен</string>
+    <string name="product_added">Продукт успешно добавлен</string>
+    <string name="store_added">Магазин успешно добавлен</string>
+    <string name="product_price_cannot_be_negative">Цена товара не может быть отрицательной</string>
+    <string name="store_name_must_not_be_empty">Название магазина не должно быть пустым</string>
+    <string name="enterApp">Войдите в приложение</string>
+    <string name="login_error">Ошибка при входе</string>
+</resources>

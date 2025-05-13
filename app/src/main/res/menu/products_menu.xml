@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/adding_product_by_kg"
+        android:title=""
+        android:icon="@drawable/scale"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/adding_product_by_item"
+        android:title=""
+        android:icon="@drawable/add_shopping_cart"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/shareProducts"
+        android:title=""
+        android:icon="@drawable/share"
+        app:showAsAction="ifRoom"/>
+</menu>

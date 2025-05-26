@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         String server = "https://android-for-students.ru";
         String serverPath = "/coursework/login.php";
         login = "Student571196";
@@ -34,17 +35,21 @@ public class MainActivity extends AppCompatActivity {
         TextView tvError = findViewById(R.id.logError);
         TextInputEditText etLogin = findViewById(R.id.login);
         TextInputEditText etPassword = findViewById(R.id.password);
+
         enterBtn.setOnClickListener(v -> {
             try {
                 login = etLogin.getText().toString();
                 password = etPassword.getText().toString();
                 group = "RIBO-02-23";
+
                 Log.i("Login", login);
                 Log.i("Password", password);
                 Log.i("Group", group);
+
                 HashMap<String, String> map = new HashMap<>();
                 HTTPRunnable httpRunnable = new HTTPRunnable(server + serverPath, map);
                 Thread th = new Thread(httpRunnable);
+
                 map.put("lgn", login);
                 map.put("pwd", password);
                 map.put("g", group);
@@ -55,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                     throw new RuntimeException(e);
                 } finally {
                     try {
-                        JSONObject jsonObject = new JSONObject(httpRunnable.getResponseBody());
+                        JSONObject jsonObject = new JSONObject(httpRunnable.getResponseBody()); // Переводит данные сервера из \u0421 в символы типа цуацуа
                         Log.i("Title", "Title: " + jsonObject.getString("title"));
                         Log.i("Task", "Task: " + jsonObject.getString("task"));
                         Log.i("Variant", "Variant: " + jsonObject.getString("variant"));

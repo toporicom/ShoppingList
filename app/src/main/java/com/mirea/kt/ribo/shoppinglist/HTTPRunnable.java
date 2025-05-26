@@ -14,15 +14,17 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.HashMap;
 
-public class HTTPRunnable implements Runnable{
+public class HTTPRunnable implements Runnable {
 
     private String address;
     private HashMap<String, String> requestBody;
     private String responseBody;
     private String generateStringBody(){
         StringBuilder sbParams = new StringBuilder();
+
         if (this.requestBody != null && !requestBody.isEmpty()){
             int i = 0;
             for (String key : this.requestBody.keySet()){
@@ -61,18 +63,18 @@ public class HTTPRunnable implements Runnable{
                 OutputStreamWriter osw = new OutputStreamWriter(httpURLConnection.getOutputStream());
                 osw.write(generateStringBody());
                 osw.flush();
-                int responseCode = httpURLConnection.getResponseCode();
+                int responseCode = httpURLConnection.getResponseCode(); // Код ошибки
                 Log.i("my_tag", "Response code: " + responseCode);
-                if (responseCode == 200){
-                    InputStreamReader isr = new InputStreamReader(httpURLConnection.getInputStream());
-                    BufferedReader br = new BufferedReader(isr);
-                    String currentLine;
-                    StringBuilder sbResponse = new StringBuilder();
+                if (responseCode == 200){ // Если 200 то всё хорошо
+                    InputStreamReader isr = new InputStreamReader(httpURLConnection.getInputStream()); // Поток чтения получаемых данных
+                    BufferedReader br = new BufferedReader(isr); // Класс для возможности чтения данных
+                    String currentLine; // Просто переменная, которая понадобится позже
+                    StringBuilder sbResponse = new StringBuilder(); // Билдер для создания вывода в виде удобной строчки
                     while ((currentLine = br.readLine()) != null){
                         sbResponse.append(currentLine);
                     }
                     responseBody = sbResponse.toString();
-                }else {
+                }else { // Если код не 200
                     Log.i("my_tag", "Error!");
                 }
                 osw.close();

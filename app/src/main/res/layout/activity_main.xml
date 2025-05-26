@@ -75,7 +75,6 @@
                 android:textColor="@color/white"
                 android:textAllCaps="false"
                 android:textSize="10pt" />
-
             <TextView
                 android:id="@+id/logError"
                 android:layout_width="wrap_content"

@@ -18,7 +18,7 @@ public class DBManager {
         this.sqLiteOpenHelper = sqLiteOpenHelper;
     }
 
-    public boolean saveStoreToDatabase(Store store) {
+    public boolean saveStoreToDatabase(Store store) { // boolean чтобы получить ответ от метода: добавилась запись в бд или нет
         SQLiteDatabase database = sqLiteOpenHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -29,7 +29,7 @@ public class DBManager {
         values.clear();
         database.close();
 
-        return rowId != -1;
+        return (rowId != -1);
     }
 
     public boolean saveProductToDatabase(Product product) {

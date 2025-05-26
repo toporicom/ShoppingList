@@ -80,7 +80,6 @@ public class StoresActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), ProductsActivity.class);
             intent.putExtra("storeId", storeId);
             intent.putExtra("storeName", stores.get(position).getName());
-            //intent.putExtra("storeName", dbManager.getStoreName(storeId));
             Log.d("start", "start ProductsActivity");
             startActivity(intent);
         };

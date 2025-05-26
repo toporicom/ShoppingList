@@ -13,6 +13,7 @@ public class MyAppSQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE stores (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)");
+
         db.execSQL("CREATE TABLE products (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, " +
                 "store_id INTEGER, quantity INTEGER, weight REAL, price REAL, isChecked INTEGER)");
     }

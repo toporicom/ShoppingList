@@ -7,16 +7,24 @@
     android:orientation="vertical"
     tools:context=".ProductsActivity">
 
+    <!-- Toolbar (Панель инструментов) -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/dark_coral"
         app:titleTextColor="@color/white"/>
+        <!-- titleTextColor="@color/white" - цвет текста заголовка (белый) -->
 
+    <!-- RecyclerView (Список продуктов) -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/productsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
 </LinearLayout>
+
+    <!-- Почему LinearLayout?
+Простая вертикальная компоновка
+Toolbar фиксированной высоты вверху
+RecyclerView занимает остальное место -->

@@ -15,26 +15,23 @@ public class DBManager {
     private SQLiteOpenHelper sqLiteOpenHelper;
 
     public DBManager(SQLiteOpenHelper sqLiteOpenHelper) {
-        this.sqLiteOpenHelper = sqLiteOpenHelper;
+        this.sqLiteOpenHelper = sqLiteOpenHelper; //Позволяет использовать кастомную реализацию SQLiteOpenHelper
     }
 
-    public boolean saveStoreToDatabase(Store store) { // boolean чтобы получить ответ от метода: добавилась запись в бд или нет
-        SQLiteDatabase database = sqLiteOpenHelper.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put("name", store.getName());
-
+    public boolean saveStoreToDatabase(Store store) { // Сохраняет магазин в таблицу "stores"
+        // boolean чтобы получить ответ от метода: добавилась запись в бд или нет
+        SQLiteDatabase database = sqLiteOpenHelper.getWritableDatabase(); //Получаем доступ к БД для записи
+        ContentValues values = new ContentValues(); //набор пар "ключ-значение", используемый для работы с базой данных SQLite.
+        values.put("name", store.getName()); //Добавляет значение имени магазина в контейнер
         long rowId = database.insert("stores", null, values);
-
         values.clear();
         database.close();
 
-        return (rowId != -1);
+        return (rowId != -1); //возвращает, если нет ошибки
     }
 
-    public boolean saveProductToDatabase(Product product) {
+    public boolean saveProductToDatabase(Product product) { //Сохраняет продукт в таблицу "products"
         SQLiteDatabase database = sqLiteOpenHelper.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put("name", product.getName());
         values.put("store_id", product.getStoreId());
@@ -42,43 +39,43 @@ public class DBManager {
         values.put("weight", product.getWeight());
         values.put("price", product.getPrice());
         values.put("isChecked", product.isChecked() ? 1 : 0);
-
         long rowId = database.insert("products", null, values);
 
         values.clear();
         database.close();
-
-        return rowId != -1;
+        return (rowId != -1);
     }
 
-    public ArrayList<Store> loadAllStoresFromDatabase() {
+    public ArrayList<Store> loadAllStoresFromDatabase() { //Загружает все магазины из таблицы "stores"
         ArrayList<Store> stores = new ArrayList<>();
         SQLiteDatabase database = sqLiteOpenHelper.getWritableDatabase();
         Cursor cursor = database.query("stores",
                 null, null, null,
-                null, null, null);
+                null, null, null); //запрос всех данных из таблицы "stores"
 
-        if (cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) { //Переходим к первой записи
             do {
-                int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("id")); //получаем индекс столбца и значение по этому индексу
+                //лучше использовать getColumnIndexOrThrow вместо getColumnIndex, так как Явно показывает ошибку, если структура БД не соответствует ожиданиям
                 String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
 
-                stores.add(new Store(id, name));
+                stores.add(new Store(id, name)); //Создаём объекты Store и добавляем в список
             } while (cursor.moveToNext());
         }
 
         cursor.close();
         database.close();
 
-        return stores;
+        return stores; //Возвращаем список магазинов
     }
 
-    public ArrayList<Product> loadAllProductsFromDatabase(int storeId) {
+    public ArrayList<Product> loadAllProductsFromDatabase(int storeId) { //Загружает все продукты для указанного магазина
         ArrayList<Product> products = new ArrayList<>();
         SQLiteDatabase database = sqLiteOpenHelper.getWritableDatabase();
         Cursor cursor = database.query("products", null, "store_id=?",
                 new String[]{String.valueOf(storeId)}, null, null, null);
-
+        //параметр selection это аналог условия WHERE в SQL
+        //store_id=? вместо ? подставляются значения, которые берут из массива String[]{String.valueOf(storeId)}
         if (cursor.moveToFirst()) {
             do {
                 int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
@@ -87,7 +84,7 @@ public class DBManager {
                 double weight = cursor.getDouble(cursor.getColumnIndexOrThrow("weight"));
                 double price = cursor.getDouble(cursor.getColumnIndexOrThrow("price"));
                 int check = cursor.getInt(cursor.getColumnIndexOrThrow("isChecked"));
-                boolean isChecked = check == 1;
+                boolean isChecked = check == 1; //Преобразуем isChecked обратно в boolean
 
                 products.add(new Product(id, name, storeId, quantity, weight, price, isChecked));
             } while (cursor.moveToNext());
@@ -99,7 +96,7 @@ public class DBManager {
         return products;
     }
 
-    public String loadAllProductsByStoreId(int storeId) {
+    public String loadAllProductsByStoreId(int storeId) { //Загружает все продукты для указанного магазина и возвращает их в виде форматированной строки
         SQLiteDatabase database = sqLiteOpenHelper.getWritableDatabase();
         StringBuilder builder = new StringBuilder("Список покупок:\n");
         Cursor cursor = database.query("products", null, "store_id=?", new String[]{String.valueOf(storeId)}, null, null, null);
@@ -124,12 +121,14 @@ public class DBManager {
         return builder.toString();
     }
 
-    public String getStoreName(int storeId) {
+    public String getStoreName(int storeId) { //Получает название магазина по его ID
         SQLiteDatabase database = sqLiteOpenHelper.getWritableDatabase();
         Cursor cursor = database.rawQuery("SELECT name FROM stores WHERE id = ?", new String[]{String.valueOf(storeId)});
+        //Метод для выполнения "сырых" SQL-запросов с возможностью параметризации
+        //Выполняет raw-запрос с параметром: SELECT name FROM stores WHERE id = ?
         String name = null;
         if (cursor.moveToFirst()) {
-            name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+            name = cursor.getString(cursor.getColumnIndexOrThrow("name")); //Если нашел запись - извлекает значение столбца name
         }
 
         cursor.close();
@@ -138,7 +137,7 @@ public class DBManager {
         return name;
     }
 
-    public void updateProductStatus(Product product) {
+    public void updateProductStatus(Product product) { //Переключает статус продукта (отмечен/не отмечен)
         SQLiteDatabase database = sqLiteOpenHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         if (product.isChecked()) {
@@ -152,7 +151,7 @@ public class DBManager {
         database.close();
     }
 
-    public void renameStore(Store store, String name) {
+    public void renameStore(Store store, String name) { //Переименовывает магазин
         SQLiteDatabase database = sqLiteOpenHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("name", name);
@@ -160,20 +159,20 @@ public class DBManager {
         database.close();
     }
 
-    public void deleteStore(Store store) {
+    public void deleteStore(Store store) { //Удаляет магазин и все его продукты
         SQLiteDatabase database = sqLiteOpenHelper.getWritableDatabase();
-        database.delete("stores", "id=?", new String[]{String.valueOf(store.getId())});
-        deleteProductsOfStore(store);
+        database.delete("stores", "id=?", new String[]{String.valueOf(store.getId())}); //Удаляет магазин из таблицы stores по ID
+        deleteProductsOfStore(store); //удаление связанных продуктов
         database.close();
     }
 
-    public void deleteProductsOfStore(Store store) {
+    public void deleteProductsOfStore(Store store) { //Удаляет все продукты указанного магазина
         SQLiteDatabase database = sqLiteOpenHelper.getWritableDatabase();
         database.delete("products", "store_id=?", new String[]{String.valueOf(store.getId())});
         database.close();
     }
 
-    public void deleteProduct(Product product) {
+    public void deleteProduct(Product product) { //Удаляет конкретный продукт
         SQLiteDatabase database = sqLiteOpenHelper.getWritableDatabase();
         database.delete("products", "id=?", new String[]{String.valueOf(product.getProductId())});
         database.close();

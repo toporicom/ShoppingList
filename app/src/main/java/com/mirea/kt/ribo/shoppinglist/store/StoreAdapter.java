@@ -21,11 +21,13 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.ViewHolder> 
 
     public interface OnStoreClickListener {
         void onStoreClickListener(Store store, int position);
+        //Этот интерфейс определяет метод, который будет вызываться при нажатии на сам элемент списка
+        //int position - позиция в списке
     }
 
     private ArrayList<Store> stores;
-    private final OnStoreClickListener onStoreClickListener;
-    private final OnStoreButtonClickListener onStoreButtonClickListener;
+    private final OnStoreClickListener onStoreClickListener; //слушатель кликов по элементу
+    private final OnStoreButtonClickListener onStoreButtonClickListener; //слушатель кликов по кнопкам элемента
 
     public StoreAdapter(ArrayList<Store> stores, OnStoreClickListener onStoreClickListener, OnStoreButtonClickListener onStoreButtonClickListener) {
         this.stores = stores;
@@ -34,6 +36,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.ViewHolder> 
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        //ViewHolder хранит ссылки на view-компоненты одного элемента списка
 
         TextView storeName;
         ImageButton renameButton;
@@ -44,6 +47,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.ViewHolder> 
             storeName = itemView.findViewById(R.id.storeName);
             renameButton = itemView.findViewById(R.id.renameStore);
             deleteButton = itemView.findViewById(R.id.deleteStore);
+            //В конструкторе происходит привязка этих полей к реальным view из layout-файла.
         }
     }
 
@@ -52,6 +56,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.ViewHolder> 
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_store, parent, false);
         return new ViewHolder(view);
+        //Создаёт view из layout-файла item_store.xml
     }
 
     @Override
@@ -59,11 +64,12 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.ViewHolder> 
         Store store = stores.get(position);
         holder.storeName.setText(store.getName());
 
-        holder.itemView.setOnClickListener(v ->
+        //Устанавливает обработчики кликов:
+        holder.itemView.setOnClickListener(v -> //На весь элемент - вызывает onStoreClickListener
                 onStoreClickListener.onStoreClickListener(store, holder.getAdapterPosition()));
-        holder.renameButton.setOnClickListener(v ->
+        holder.renameButton.setOnClickListener(v -> //На кнопку переименования - вызывает onStoreButtonClickListener с ID кнопки
                 onStoreButtonClickListener.onStoreButtonClickListener(store, holder.renameButton.getId()));
-        holder.deleteButton.setOnClickListener(v ->
+        holder.deleteButton.setOnClickListener(v -> //На кнопку удаления - вызывает onStoreButtonClickListener с ID кнопки
                 onStoreButtonClickListener.onStoreButtonClickListener(store, holder.deleteButton.getId()));
     }
 

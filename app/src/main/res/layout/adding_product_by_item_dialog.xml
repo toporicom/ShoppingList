@@ -6,18 +6,22 @@
     android:orientation="vertical"
     android:padding="8sp">
 
+    <!-- CardView (основа стиля) (сама карточка эта) -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:foreground="@drawable/edit_text_border"
         app:cardCornerRadius="10sp">
+        <!-- Закругление углов 10sp: Создает скруглённые углы карточки -->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="14sp">
+            <!-- Внутренние отступы 14sp: Отделяет содержимое от границ карточки -->
 
+            <!-- Название продукта -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -32,6 +36,7 @@
                 android:layout_marginTop="10sp"
                 android:background="@drawable/edit_text_border_hard" />
 
+            <!-- Цена продукта -->
             <TextView
                 android:layout_width="match_parent"
                 android:textColor="@color/light_coral"
@@ -47,7 +52,11 @@
                 android:layout_height="40sp"
                 android:background="@drawable/edit_text_border_hard"
                 android:inputType="numberDecimal|numberSigned" />
+                <!-- "numberDecimal|numberSigned" - Это комбинация двух флагов через символ | (битовое ИЛИ):
+                numberDecimal - Разрешает ввод десятичных чисел (с точкой)
+                numberSigned - Разрешает ввод знака +/- в начале числа -->
 
+            <!-- SeekBar с отображением значения -->
             <TextView
                 android:id="@+id/seekBarItemValue"
                 android:layout_width="match_parent"
@@ -66,7 +75,11 @@
                 android:progress="1"
                 android:progressTint="@color/melon"
                 android:thumbTint="@color/dark_coral" />
+                <!-- Диапазон значений: от 0 до 20; Начальное значение: 1
+                progressTint - Цвет полоски
+                thumbTint - Цвет ползунка -->
 
+            <!-- Кнопка добавления -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/addProductButton"
                 android:layout_width="200sp"

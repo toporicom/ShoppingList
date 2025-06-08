@@ -11,10 +11,8 @@
         android:foreground="@drawable/edit_text_border"
         android:layout_height="75sp"
         app:cardCornerRadius="8sp">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-
             android:layout_height="match_parent">
 
             <TextView
@@ -22,7 +20,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textColor="@color/light_coral"
-                android:layout_marginStart="50dp"
+                android:layout_marginStart="50sp"
                 android:gravity="center"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -38,12 +36,13 @@
                 app:layout_constraintEnd_toStartOf="@+id/storeName"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+            <!-- layout_constraintEnd_toStartOf="@+id/quantity" - Правый привязываем к левому краю названия -->
 
             <ImageButton
                 android:id="@+id/renameStore"
                 android:layout_width="25sp"
                 android:layout_height="25sp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="15sp"
                 android:src="@drawable/drive_file_rename"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

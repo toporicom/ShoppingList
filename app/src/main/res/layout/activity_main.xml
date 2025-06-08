@@ -9,35 +9,35 @@
     android:orientation="vertical"
     android:padding="8sp"
     tools:context=".MainActivity">
-
+    <!-- ConstraintLayout - гибкий контейнер для позиционирования дочерних элементов-->
+    <!-- padding="8sp" - внутренние отступы -->
+    <!-- tools:context - связь с Activity для предпросмотра (tools только для предпросмотра) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10pt"
+                android:layout_marginBottom="10sp"
                 android:gravity="center"
                 android:text="@string/enterApp"
                 android:textColor="@color/dark_coral"
-                android:textSize="12pt"
+                android:textSize="25sp"
                 android:textStyle="bold" />
+                <!-- TextView - заголовок-->
+                <!-- layout_marginBottom - задает внешний отступ снизу -->
 
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="140pt"
-                android:layout_height="30pt"
+                android:layout_width="320sp"
+                android:layout_height="60sp"
                 app:errorEnabled="true"
                 app:passwordToggleEnabled="false">
-
+                <!-- TextInputLayout - контейнер для поля ввода -->
+                <!-- errorEnabled - возможность показа ошибок -->
+                <!-- passwordToggleEnabled="false" - иконка глазика скрыта для логина -->
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/login"
                     android:layout_width="match_parent"
@@ -47,13 +47,15 @@
                     android:inputType="text"
                     android:textColor="@color/black"
                     android:textColorHint="@color/apricot" />
+                <!-- TextInputEditText - поле для ввода текста -->
+                <!-- hint - подсказка "Логин" -->
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="140pt"
-                android:layout_height="30pt"
+                android:layout_width="320sp"
+                android:layout_height="60sp"
                 app:passwordToggleEnabled="true">
-
+                <!-- passwordToggleEnabled="true" - иконка глазика показана для пароля -->
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
@@ -63,36 +65,45 @@
                     android:inputType="textPassword"
                     android:textColor="@color/black"
                     android:textColorHint="@color/apricot" />
+                <!--layout_width="match_parent" - Ширина как у родителя
+                 layout_height="wrap_content" - высота по содержимому -->
+                <!-- inputType="textPassword" - скрывает ввод (точки вместо символов) -->
             </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- кнопка входа -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/login_button"
-                android:layout_width="140pt"
-                android:layout_height="30pt"
-                android:layout_marginTop="10pt"
+                android:layout_width="320sp"
+                android:layout_height="60sp"
+                android:layout_marginTop="10sp"
                 android:background="@drawable/border"
                 android:text="@string/login_button"
                 android:textColor="@color/white"
                 android:textAllCaps="false"
-                android:textSize="10pt" />
+                android:textSize="22sp" />
+                <!-- textAllCaps="false" - текст без автоматического преобразования в верхний регистр
+                (По умолчанию в Material Design кнопки часто отображают текст в ВЕРХНЕМ РЕГИСТРЕ. Например: "ВОЙТИ"-->
+
+            <!-- текст ошибки -->
             <TextView
                 android:id="@+id/logError"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="4pt"
+                android:layout_margin="12sp"
                 android:text="@string/login_error"
                 android:textColor="@color/error"
-                android:textSize="10pt"
+                android:textSize="25sp"
                 android:visibility="gone" />
-        </LinearLayout>
+                <!-- Изначально скрыт (visibility="gone") -->
     </LinearLayout>
 
+    <!-- подпись внизу экрана -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginStart="20sp"
+        android:layout_marginEnd="20sp"
+        android:layout_marginBottom="24sp"
         android:gravity="center"
         android:text="@string/name"
         android:textColor="@color/dark_coral"
@@ -100,5 +111,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+    <!-- margin - отступы снаружи, padding - отступы изнутри-->
+    <!-- правила привязки (constraints), которые указывают, как View должна быть расположена внутри ConstraintLayout
+     End означает "правый"; Start означает "левый"
+      у нас: View растягивается по всей ширине родителя (от левого до правого края)
+             Фиксируется у нижнего края родителя-->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

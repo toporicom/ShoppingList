@@ -17,10 +17,12 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
+            <!-- Определяет могут ли другие приложения запускать эту активность -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <!-- Определяет что это главная точка входа в приложение -->
                 <category android:name="android.intent.category.LAUNCHER" />
+                <!-- Добавляет иконку приложения в меню запуска (Launcher), чтобы пользователь мог открыть приложение. -->
             </intent-filter>
         </activity>
         <activity
